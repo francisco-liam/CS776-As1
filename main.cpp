@@ -143,6 +143,17 @@ int main() {
     write_csv("hillclimber_easy.csv", average_log(logs_easy));
     write_csv("hillclimber_hard.csv", average_log(logs_hard));
 
+    // --- Report average number of iterations per problem ---
+    auto avg_iters = [](const std::vector<std::vector<double>>& logs) {
+        double sum = 0.0;
+        for (const auto& log : logs) sum += log.size();
+        return (logs.empty()) ? 0.0 : (sum / logs.size());
+    };
+
+    std::cout << "Average # iterations (blackbox): " << avg_iters(logs_blackbox) << std::endl;
+    std::cout << "Average # iterations (easy):     " << avg_iters(logs_easy) << std::endl;
+    std::cout << "Average # iterations (hard):     " << avg_iters(logs_hard) << std::endl;
+
     // // Only refine and write the refinement CSV if the black box is hard
     // #ifdef BLACKBOX_HARD
     //     logs_hard_refine.clear();
